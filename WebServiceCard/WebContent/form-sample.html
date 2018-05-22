@@ -25,19 +25,19 @@
                     <h3 class="ui dividing header">Add card Information</h3>
                     <div class="field">
                         <label>Name</label>
-                        <input type="text" name="name" placeholder="Card Name">
+                        <input type="text" name="name" placeholder="Card Name" required>
                     </div>
                     <div class="field">
                         <label>Description</label>
-                        <textarea rows="3" name="description" placeholder="Description"></textarea>
+                        <textarea rows="3" name="description" placeholder="Description" required></textarea>
                     </div>
                     <div class="field">
                         <label>Image URL</label>
-                        <input type="text" name="imageUrl" placeholder="Image URL">
+                        <input type="text" name="imgUrl" placeholder="Image URL" required>
                     </div>
                     <div class="field">
                     	<label>Family</label>
-						<select name="family">
+						<select name="family" required>
 							<option value="">-</option>
 							<option value="test">test</option>
 							<option value="test1">test1</option>
@@ -46,19 +46,19 @@
                     </div>
                     <div class="field">
                         <label>HP</label>
-                        <input type="number" name="hp">
+                        <input type="number" name="hp" required>
                     </div>
                     <div class="field">
                         <label>Energy</label>
-                        <input type="number" name="energy">
+                        <input type="number" name="energy" required>
                     </div>
                     <div class="field">
                         <label>Attack</label>
-                        <input type="number" name="attack">
+                        <input type="number" name="attack" required>
                     </div>
                     <div class="field">
                         <label>Defence</label>
-                        <input type="number" name="defence">
+                        <input type="number" name="defence" required>
                     </div>
                   
                     <button class="ui button" id="submit" type="submit" >OK</button>
