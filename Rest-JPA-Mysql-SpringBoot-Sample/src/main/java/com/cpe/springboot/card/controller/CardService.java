@@ -37,6 +37,10 @@ public class CardService {
 		cardRepository.delete(Integer.valueOf(id));
 	}
 
+	public List<Card> getCardsUser(String id) {
+		return cardRepository.cardsuser(Integer.valueOf(id));		
+	}
+
 /*	public List<Card> getCardByColor(String color) {
 		return cardRepository.findByColor(color);
 	}*/

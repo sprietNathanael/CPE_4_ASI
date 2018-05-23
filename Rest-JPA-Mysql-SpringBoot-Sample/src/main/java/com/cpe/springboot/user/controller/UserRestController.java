@@ -94,12 +94,5 @@ public class UserRestController {
 	public void deleteUser(@PathVariable String id) {
 		userService.deleteUser(id);
 	}
-/*	
-	@RequestMapping("/users/color/{color}")
-	private List<User> getAllCourses(@PathVariable String color) {
-		return userService.getUserByColor(color);
-
-	}
-	*/
 
 }

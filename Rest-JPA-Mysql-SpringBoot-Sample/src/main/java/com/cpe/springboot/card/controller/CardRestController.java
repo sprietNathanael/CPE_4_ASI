@@ -29,6 +29,11 @@ public class CardRestController {
 
 	}
 	
+	@RequestMapping("/cardsuser/{id}")
+	private List<Card> getCardsUser(@PathVariable String id) {
+		return cardService.getCardsUser(id);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST,value="/cards")
 	public void addCard(@RequestBody Card card) {
 		cardService.addCard(card);

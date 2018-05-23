@@ -10,12 +10,10 @@ $(document ).ready(function(){
         //TO DO
     });    
     $("#buyButtonId").click(function(){
-        alert("Buy button clicked ");
-        //TO DO
+    	window.location.replace('/cardList.html');
     });    
     $("#sellButtonId").click(function(){
-        alert("Sell button clicked ");
-        //TO DO
+    	window.location.replace('/cardList.html');
     });    
 });
 

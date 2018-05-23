@@ -1,9 +1,17 @@
 package com.cpe.springboot.card.model;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.cpe.springboot.user.model.User;
 
 @Entity
 public class Card {
@@ -19,7 +27,12 @@ public class Card {
 	private int attack;
 	private int defence;
 	private String imgUrl;
-
+	@Column(name="price", columnDefinition="Decimal(8,2)")
+	private BigDecimal price;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "iduser")
+	private User user;
+	
 	public Card() {	}
 	
 	public Card( String name,String description,String family,int hp,int energy,int attack,int defence,String imgUrl) {
@@ -103,6 +116,22 @@ public class Card {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 }

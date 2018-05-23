@@ -40,9 +40,5 @@ public class UserService {
 	public User findOneBySurnameAndPassword(String surname, String password){
 		return userRepository.findOneBySurnameAndPassword(surname, password);
 	}
-/*
-	public List<User> getUserByColor(String color) {
-		return userRepository.findByColor(color);
-	}
-*/
+
 }

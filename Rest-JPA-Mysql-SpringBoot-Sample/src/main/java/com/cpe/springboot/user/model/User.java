@@ -1,10 +1,12 @@
 package com.cpe.springboot.user.model;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class User {
@@ -15,9 +17,10 @@ public class User {
 	private String name;
 	private String password;
 	private String surname;
+	@Column(name="cash", nullable=false, columnDefinition="Decimal(8,2)")
+	private BigDecimal cash = BigDecimal.valueOf(5000);
 	private String token;
-
-
+	
 	public User() {	}
 	
 	public User(String name,String password,String surname) {
@@ -58,6 +61,14 @@ public class User {
 		this.id = id;
 	}
 
+	public BigDecimal getCash() {
+		return cash;
+	}
+
+	public void setCash(BigDecimal cash) {
+		this.cash = cash;
+	}
+	
 	public String getToken() {
 		return token;
 	}
@@ -65,7 +76,5 @@ public class User {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-	
 
 }
