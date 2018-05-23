@@ -34,22 +34,18 @@ public class UserRestController {
 	
 	@RequestMapping("/login")
 	private User login(String surname, String password) {
-		List<User> listuser = userService.getAllUsers();
-		User userReturn = null;
+		User user = userService.findOneBySurnameAndPassword(surname, password);
 		String token = null;
-		for(User user : listuser)
-		{
-			if(user.getSurname().equals(surname) && user.getPassword().equals(password))
-			{
-				SecureRandom random = new SecureRandom();
-				long longToken = Math.abs( random.nextLong() );
-				token = Long.toString( longToken, 16 );
-				user.setToken(token);
-				userService.updateUser(user);
-				userReturn = user;
-			}
+		
+		if(user != null) {
+			SecureRandom random = new SecureRandom();
+			long longToken = Math.abs( random.nextLong() );
+			token = Long.toString( longToken, 16 );
+			user.setToken(token);
+			userService.updateUser(user);
 		}
-		return userReturn;		
+		
+		return user;		
 	}
 	
 	@RequestMapping("/logout")

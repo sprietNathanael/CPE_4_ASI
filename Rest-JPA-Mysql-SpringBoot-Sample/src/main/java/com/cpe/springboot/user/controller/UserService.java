@@ -36,6 +36,10 @@ public class UserService {
 	public void deleteUser(String id) {
 		userRepository.delete(Integer.valueOf(id));
 	}
+	
+	public User findOneBySurnameAndPassword(String surname, String password){
+		return userRepository.findOneBySurnameAndPassword(surname, password);
+	}
 /*
 	public List<User> getUserByColor(String color) {
 		return userRepository.findByColor(color);
