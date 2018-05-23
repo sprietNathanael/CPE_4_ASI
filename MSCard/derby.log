@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Feb 21 08:50:10 CET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-0161-b757-5842-000007b5a6d8 
+on database directory memory:D:\Data\cpe_cours\ASI\ASI-1\addDocs\atelier3\backend\Rest-JPA-SpringBoot-Sample-junit-mockito\testdb with class loader sun.misc.Launcher$AppClassLoader@6d06d69c 
+Loaded from file:/C:/Users/jsaraydaryan/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_161-b12
+user.dir=D:\Data\cpe_cours\ASI\ASI-1\addDocs\atelier3\backend\Rest-JPA-SpringBoot-Sample-junit-mockito
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

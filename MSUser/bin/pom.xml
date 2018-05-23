@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.cpe.springboot</groupId>
-	<artifactId>MSUser</artifactId>
+	<artifactId>Rest-JPA-Mysql-SpringBoot-Sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>MSUser</name>
-	<description>MSUser : micro service usage with full REST Api, JPA using external DB into mysql</description>
+	<name>Rest-JPA-Mysql-SpringBoot-Sample</name>
+	<description>Example of Springboot usage with full REST Api, JPA using external DB into mysql</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
