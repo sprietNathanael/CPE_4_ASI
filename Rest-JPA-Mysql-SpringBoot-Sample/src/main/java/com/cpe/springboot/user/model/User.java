@@ -15,6 +15,7 @@ public class User {
 	private String name;
 	private String password;
 	private String surname;
+	private String token;
 
 
 	public User() {	}
@@ -56,5 +57,15 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 
 }

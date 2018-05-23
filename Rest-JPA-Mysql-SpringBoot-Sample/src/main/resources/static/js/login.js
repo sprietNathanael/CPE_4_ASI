@@ -13,8 +13,8 @@ $("#submit").click(function(){
 		success: function(data){
 			if(data)
 			{
-				sessionStorage.setItem('token', data);
-				sessionStorage.setItem('user', formData.surname);
+				console.log(data);
+				sessionStorage.setItem('user', data);
 				window.location = "/cardHome.html";
 			}
 			else

@@ -1,6 +1,9 @@
 package com.cpe.springboot.user.controller;
 
 import java.util.List;
+
+import static org.mockito.Matchers.booleanThat;
+
 import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +33,9 @@ public class UserRestController {
 	}
 	
 	@RequestMapping("/login")
-	private String login(String surname, String password) {
+	private User login(String surname, String password) {
 		List<User> listuser = userService.getAllUsers();
+		User userReturn = null;
 		String token = null;
 		for(User user : listuser)
 		{
@@ -40,10 +44,43 @@ public class UserRestController {
 				SecureRandom random = new SecureRandom();
 				long longToken = Math.abs( random.nextLong() );
 				token = Long.toString( longToken, 16 );
-				System.out.println(token);
+				user.setToken(token);
+				userService.updateUser(user);
+				userReturn = user;
 			}
 		}
-		return token;		
+		return userReturn;		
+	}
+	
+	@RequestMapping("/logout")
+	private boolean logout(String id) {
+		List<User> listuser = userService.getAllUsers();
+		boolean ret = false;
+		for(User user : listuser)
+		{
+			if(user.getId().toString().equals(id))
+			{
+				user.setToken(null);
+				userService.updateUser(user);
+				ret = true;
+			}
+		}
+		return ret;		
+	}
+	
+	@RequestMapping("/tryToken")
+	private boolean tryToken(String id, String token) {
+		List<User> listuser = userService.getAllUsers();
+		boolean ret = false;
+		for(User user : listuser)
+		{
+			if(user.getId().toString().equals(id) && (user.getToken() != null && user.getToken().equals(token)))
+			{
+				System.out.println("TEST");
+				ret = true;
+			}
+		}
+		return ret;		
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/users")
