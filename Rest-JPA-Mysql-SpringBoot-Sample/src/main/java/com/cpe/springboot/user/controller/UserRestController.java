@@ -1,6 +1,7 @@
 package com.cpe.springboot.user.controller;
 
 import java.util.List;
+import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,17 +30,20 @@ public class UserRestController {
 	}
 	
 	@RequestMapping("/login")
-	private boolean login(String surname, String password) {
+	private String login(String surname, String password) {
 		List<User> listuser = userService.getAllUsers();
-		boolean ret = false;
+		String token = null;
 		for(User user : listuser)
 		{
 			if(user.getSurname().equals(surname) && user.getPassword().equals(password))
 			{
-				ret = true;
+				SecureRandom random = new SecureRandom();
+				long longToken = Math.abs( random.nextLong() );
+				token = Long.toString( longToken, 16 );
+				System.out.println(token);
 			}
 		}
-		return ret;		
+		return token;		
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/users")
