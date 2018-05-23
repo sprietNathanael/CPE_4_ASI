@@ -31,10 +31,17 @@
                         <input type="password" name="password" required>
                     </div>
                     
-                    <button class="ui button" id="submit" type="submit" >Connect</button>
+                    <button class="ui button" id="submit" >Connect</button>
                 </form>
+                <div class="ui negative hidden message" id="loginError">
+					  <div class="header">
+					    Oops
+					  </div>
+					  <p>The login and / or the password is wrong</p>
+				</div>
             </div>
         </div>
+        
         
         <!-- Jquery -->
         <script type="text/javascript" src="lib/jquery-3.3.1.min.js"></script>
