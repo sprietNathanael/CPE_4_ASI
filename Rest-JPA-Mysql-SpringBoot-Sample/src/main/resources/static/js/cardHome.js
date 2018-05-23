@@ -1,3 +1,9 @@
+function authReady()
+{
+	console.log("auth ready");
+	$("#userNameId").text(user.name);
+}
+
 $(document ).ready(function(){
     $("#playButtonId").click(function(){
         alert("Play button clicked ");

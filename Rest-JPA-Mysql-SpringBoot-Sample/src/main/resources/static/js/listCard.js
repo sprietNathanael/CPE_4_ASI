@@ -9,6 +9,11 @@ $(document ).ready(function(){
 
 });
 
+function authReady()
+{
+	console.log("auth ready");
+	$("#userNameId").text(user.name);
+}
 
 
 

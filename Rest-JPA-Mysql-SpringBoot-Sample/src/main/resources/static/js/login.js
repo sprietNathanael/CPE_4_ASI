@@ -13,8 +13,7 @@ $("#submit").click(function(){
 		success: function(data){
 			if(data)
 			{
-				console.log(data);
-				sessionStorage.setItem('user', data);
+				sessionStorage.setItem('user', JSON.stringify(data));
 				window.location = "/cardHome.html";
 			}
 			else
