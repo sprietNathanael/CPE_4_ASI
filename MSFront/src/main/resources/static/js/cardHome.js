@@ -6,7 +6,7 @@ function authReady()
 
 $(document ).ready(function(){
     $("#playButtonId").click(function(){
-        alert("Play button clicked ");
+        alert("room/roomList.html");
         //TO DO
     });    
     $("#buyButtonId").click(function(){
