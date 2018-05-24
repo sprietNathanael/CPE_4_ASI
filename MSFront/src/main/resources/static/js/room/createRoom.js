@@ -5,7 +5,7 @@ function authReady()
 }
 
 $(document).ready(function(){
-    $("#cancelButtonId").click(function()
+    $("#cancelButtonId").click(function(){
     	window.location.replace('/room/roomList.html');
     });  
     
