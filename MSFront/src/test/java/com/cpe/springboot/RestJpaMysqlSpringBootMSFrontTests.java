@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RestJpaMysqlSpringBootSampleApplicationTests {
+public class RestJpaMysqlSpringBootMSFrontTests {
 
 	@Test
 	public void contextLoads() {

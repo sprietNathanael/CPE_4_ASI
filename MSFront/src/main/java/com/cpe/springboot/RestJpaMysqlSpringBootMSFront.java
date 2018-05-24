@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RestJpaMysqlSpringBootSampleApplication {
+public class RestJpaMysqlSpringBootMSFront {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RestJpaMysqlSpringBootSampleApplication.class, args);
+		SpringApplication.run(RestJpaMysqlSpringBootMSFront.class, args);
 	}
 }

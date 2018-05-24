@@ -7,6 +7,7 @@ import static org.mockito.Matchers.booleanThat;
 import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,18 +22,18 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/users")
+	@RequestMapping(path = "/getall", produces = "application/json")
 	private List<User> getAllCourses() {
 		return userService.getAllUsers();
 	}
 	
-	@RequestMapping("/users/{id}")
+	@RequestMapping(path = "/id/{id}", produces = "application/json")
 	private User getUser(@PathVariable String id) {
 		return userService.getUser(id);
 
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping(path = "/login", produces = "application/json")
 	private User login(String surname, String password) {
 		User user = userService.findOneBySurnameAndPassword(surname, password);
 		String token = null;
@@ -48,7 +49,7 @@ public class UserRestController {
 		return user;		
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping(path = "/logout", produces = "application/json")
 	private boolean logout(String id) {
 		List<User> listuser = userService.getAllUsers();
 		boolean ret = false;
@@ -64,7 +65,7 @@ public class UserRestController {
 		return ret;		
 	}
 	
-	@RequestMapping("/tryToken")
+	@RequestMapping(path = "/tryToken", produces = "application/json")
 	private boolean tryToken(String id, String token) {
 		List<User> listuser = userService.getAllUsers();
 		boolean ret = false;
@@ -79,18 +80,21 @@ public class UserRestController {
 		return ret;		
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/users")
-	public void addUser(@RequestBody User user) {
+	@RequestMapping(method=RequestMethod.POST,value="/", consumes = "application/json")
+	public ResponseEntity<?>  addUser(@RequestBody User user) {
 		userService.addUser(user);
+		ResponseEntity<?> res = ResponseEntity.ok().build();
+		System.out.println(res);
+		return res;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT,value="/users/{id}")
+	@RequestMapping(method=RequestMethod.PUT,value="/id/{id}", consumes = "application/json")
 	public void updateUser(@RequestBody User user,@PathVariable String id) {
 		user.setId(Integer.valueOf(id));
 		userService.updateUser(user);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE,value="/users/{id}")
+	@RequestMapping(method=RequestMethod.DELETE,value="/id/{id}")
 	public void deleteUser(@PathVariable String id) {
 		userService.deleteUser(id);
 	}
