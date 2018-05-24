@@ -6,8 +6,7 @@ function authReady()
 
 $(document ).ready(function(){
     $("#playButtonId").click(function(){
-        alert("room/roomList.html");
-        //TO DO
+    	window.location.replace('/room/roomList.html');
     });    
     $("#buyButtonId").click(function(){
     	window.location.replace('/cardList.html');
