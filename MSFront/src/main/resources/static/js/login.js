@@ -28,3 +28,6 @@ $("#submit").click(function(){
 	return false;
 });
 
+$("#signUp").click(function(){
+	window.location.replace('/formSample.html');
+});
