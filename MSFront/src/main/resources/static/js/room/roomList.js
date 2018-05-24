@@ -1,18 +1,20 @@
+function authReady()
+{
+	console.log("auth ready");
+	$("#userNameId").text(user.name);
+}
+
+
 $(document ).ready(function(){
-    
-   
-    
     for(i=0;i<5;i++){
         addRoomToList(i,"room "+ i,"user" +i, 500);
     }
     
      $("#createRoomButtonId").click(function(){
-        alert("Create Card button clicked ");
-        //TO DO
+     	window.location.replace('/room/createRoom.html');
     }); 
     
 });
-
 
 function addRoomToList(id,name, user, bet){
     

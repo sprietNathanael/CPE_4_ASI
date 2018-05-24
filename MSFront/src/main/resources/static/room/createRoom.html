@@ -17,18 +17,19 @@
     <body>
         <div class="ui clearing segment">
             <h3 class="ui right floated header">
-                <i class="user circle outline icon"></i>
-                <div class="content">
-                    <span id="userNameId">Jdoe</span>
-                    <div class="sub header"><span>5000</span>$</div>
+                <div class="content" onclick="logout()">
+                    <i class="user circle outline icon"></i>
+                    <span id="userNameId">[USER]</span>
                 </div>
             </h3>
 
             <h3 class="ui left floated header">
                 <div class="content">
-                    <i class="plus icon"></i>
-                    CREATE ROOM
-                    <div class="sub header">Create a room to play against other user</div>
+                	<a href="/cardHome.html">
+	                    <i class="plus icon"></i>
+	                    CREATE ROOM
+	                    <div class="sub header">Create a room to play against other user</div>
+                    </a>
                 </div>
             </h3>
         </div>
@@ -43,11 +44,11 @@
                     <h3 class="ui dividing header">Create a Room</h3>
                     <div class="field">
                         <label>Room Name</label>
-                        <input type="text" name="room-name" id="roomNameId" placeholder="First Name">
+                        <input type="text" name="room-name" id="roomNameId">
                     </div>
                     <div class="field">
                         <label>Bet</label>
-                        <input type="text" name="bet-name" id="roomBetId" placeholder="Last Name">
+                        <input type="text" name="bet-name" id="roomBetId" placeholder="$">
                     </div>
 
 
@@ -65,6 +66,7 @@
 
         <script src="/lib/jquery-3.3.1.min.js"></script>
         <script src="/lib/Semantic-UI-CSS-master/semantic.js"></script>
+        <script src="/js/tokenManagement.js"></script> 
         <script src="/js/room/createRoom.js"></script> 
 
     </body>

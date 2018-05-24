@@ -1,8 +1,12 @@
-$(document ).ready(function(){
+function authReady()
+{
+	console.log("auth ready");
+	$("#userNameId").text(user.name);
+}
 
-    $("#cancelButtonId").click(function(){
-        alert("Cancel button clicked :");
-        //TO DO
+$(document).ready(function(){
+    $("#cancelButtonId").click(function()
+    	window.location.replace('/room/roomList.html');
     });  
     
     $("#createButtonId").click(function(){

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
         <!-- Site Properties -->
-        <title>Grid Example - Semantic</title>
+        <title>Grid</title>
 
         <link rel="stylesheet" type="text/css" href="/lib/Semantic-UI-CSS-master/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="/css/custom.css">
@@ -15,24 +15,24 @@
     </head>
 
     <body>
-        <div class="ui clearing segment">
+    <div class="ui clearing segment">
             <h3 class="ui right floated header">
-                <i class="user circle outline icon"></i>
-                <div class="content">
-                    <span id="userNameId">Jdoe</span>
-                    <div class="sub header"><span>5000</span>$</div>
+                <div class="content" onclick="logout()">
+                    <i class="user circle outline icon"></i>
+                    <span id="userNameId">[USER]</span>
                 </div>
             </h3>
 
             <h3 class="ui left floated header">
                 <div class="content">
-                    <i class="game pad icon"></i>
-                    PLAY
-                    <div class="sub header">Select a room to play</div>
+	                <a href="/cardHome.html">
+	                    <i class="game pad icon"></i>
+	                    PLAY
+	                    <div class="sub header">Select a room to play</div>
+	                </a>
                 </div>
             </h3>
         </div>
-
 
         <div class="ui grid">
             <div class="ten wide column">
@@ -85,6 +85,7 @@
 
         <script src="/lib/jquery-3.3.1.min.js"></script>
         <script src="/lib/Semantic-UI-CSS-master/semantic.js"></script>
+        <script src="/js/tokenManagement.js"></script> 
         <script src="/js/room/roomList.js"></script> 
 
     </body>
