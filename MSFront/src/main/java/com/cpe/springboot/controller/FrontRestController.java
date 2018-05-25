@@ -28,9 +28,28 @@ public class FrontRestController {
 	
 	private RestTemplate restTemplate = new RestTemplate();
 	private final String USER_SERVER = "http://localhost:8083";
+	private final String GAME_SERVER = "http://localhost:8082";
+	private final String CARD_SERVER = "http://localhost:8081";
 	
 	@RequestMapping(path = "/users/**", produces = "application/json")
-	private String reverseProxy(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request) {
+	private String userRoute(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request)
+	{
+		return reverseProxy(body, parameters, request, USER_SERVER);
+	}
+	
+	@RequestMapping(path = "/games/**", produces = "application/json")
+	private String gameRoute(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request)
+	{
+		return reverseProxy(body, parameters, request, GAME_SERVER);
+	}
+	
+	@RequestMapping(path = "/cards/**", produces = "application/json")
+	private String cardRoute(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request)
+	{
+		return reverseProxy(body, parameters, request, CARD_SERVER);
+	}
+	
+	private String reverseProxy(String body, Map<String,String> parameters,  HttpServletRequest request, String server) {
 		String result = null;
 		String url = (String)(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
 		RequestMethod type = RequestMethod.valueOf(request.getMethod());
@@ -72,7 +91,7 @@ public class FrontRestController {
 			case GET:
 				try
 				{
-					result = restTemplate.getForObject(USER_SERVER+url+requestParameters, String.class);
+					result = restTemplate.getForObject(server+url+requestParameters, String.class);
 				}
 				catch(RestClientException e)
 				{
@@ -80,15 +99,15 @@ public class FrontRestController {
 				}
 				break;
 			case POST:
-				restTemplate.postForObject(USER_SERVER+url+requestParameters, requestBody, String.class);
+				restTemplate.postForObject(server+url+requestParameters, requestBody, String.class);
 				result = ResponseEntity.ok().build().toString();
 				break;
 			case PUT:
-				restTemplate.put(USER_SERVER+url+requestParameters, requestBody, String.class);
+				restTemplate.put(server+url+requestParameters, requestBody, String.class);
 				result = ResponseEntity.ok().build().toString();
 				break;
 			case DELETE:
-				restTemplate.delete(USER_SERVER+url+requestParameters, requestBody, String.class);
+				restTemplate.delete(server+url+requestParameters, requestBody, String.class);
 				result = ResponseEntity.ok().build().toString();
 				break;
 			default:
