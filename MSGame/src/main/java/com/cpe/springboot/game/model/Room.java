@@ -17,12 +17,12 @@ public class Room {
 	private String roomName;
 	private Integer bet;
 	private Integer creatorId;
-	private Integer player1;
-	private Integer player2;
+	private Integer player1 = -1;
+	private Integer player2 = -1;
 	/*
-	 * 1: created
-	 * 2: in progress
-	 * 3: finished
+	 * 0: created
+	 * 1: in progress
+	 * 2: finished
 	 */
 	@Column(name="state")
 	private Integer state = 0;
@@ -34,6 +34,14 @@ public class Room {
 		this.setBet(bet);
 		this.setCreatorId(creatorId);
 		this.setState(0);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getRoomName() {
@@ -83,4 +91,55 @@ public class Room {
 	public void setState(Integer state) {
 		this.state = state;
 	}
+	
+	/**
+	 *  Add a player to the game if there is room for him.
+	 *  Then if there are two player, the state goes to "in pgrogress"
+	 * 
+	 * @param playerId
+	 * @return
+	 */
+	public boolean addPlayer(int playerId) {
+		boolean result = false;
+
+		if (state == 0) {
+			if ((this.player1 == -1) && (player2 != playerId)) {
+				player1 = playerId;
+				result = true;
+			} else if ((player2 == -1) && (player1 != playerId)) {
+				player2 = playerId;
+				result = true;
+			}
+			
+			if (result && (player1 != -1) && (player2 != -1)) {
+				state = 1;
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 *  Remove a player to the game and set
+	 *  the state goes to "pending"
+	 * 
+	 * @param playerId
+	 * @return
+	 */
+	public boolean removePlayer(int playerId) {
+		boolean result = false;
+		
+		if (playerId == player1) {
+			player1 = -1;
+			state = 0;
+			result = true;
+		} else if (playerId == player2) {
+			player2 = -1;
+			state = 0;
+			result = true;
+		}
+		
+		return result;
+	}
+	
 }

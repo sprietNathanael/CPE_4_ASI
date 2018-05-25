@@ -36,5 +36,9 @@ public class RoomService {
 	public void deleteRoom(String id) {
 		roomRepository.delete(Integer.valueOf(id));
 	}
+	
+	public List<Room> findByState(int state){
+		return roomRepository.findByState(state);
+	}
 
 }
