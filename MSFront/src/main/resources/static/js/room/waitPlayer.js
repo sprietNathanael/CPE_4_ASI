@@ -11,7 +11,7 @@ function checkPlayersReady(room){
 		dataType: "json",
 		success: function(data){
 			if (data.state == 1){
-				window.location.assign('/room/roomList.html');
+				window.location.assign('/room/selectCardForPlay.html');
 			}
 		}, 
 		error : function(){
