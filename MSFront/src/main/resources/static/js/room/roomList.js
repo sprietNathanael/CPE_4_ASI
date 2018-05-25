@@ -6,14 +6,30 @@ function authReady()
 
 
 $(document ).ready(function(){
-    for(i=0;i<5;i++){
+    /*for(i=0;i<5;i++){
         addRoomToList(i,"room "+ i,"user" +i, 500);
-    }
+    }*/
     
      $("#createRoomButtonId").click(function(){
      	window.location.replace('/room/createRoom.html');
     }); 
     
+});
+
+$(window).on('load', function(){ 
+	$.ajax({
+		type: "GET",
+		contentType : "application/json",
+		url: "/rooms"+completeURLWithToken(),
+		success: function(data){
+			$.each(data, function(index, room){
+				addRoomToList(room.id,"room "+ room.id,"user" +room.creatorId, room.bet);
+			});
+		}, 
+		error : function(){
+			console.log('Echec');
+		}
+	});
 });
 
 function addRoomToList(id,name, user, bet){
