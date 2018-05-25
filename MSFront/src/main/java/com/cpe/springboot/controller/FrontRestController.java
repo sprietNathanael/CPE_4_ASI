@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -27,9 +28,28 @@ public class FrontRestController {
 	
 	private RestTemplate restTemplate = new RestTemplate();
 	private final String USER_SERVER = "http://localhost:8083";
+	private final String GAME_SERVER = "http://localhost:8082";
+	private final String CARD_SERVER = "http://localhost:8081";
 	
 	@RequestMapping(path = "/users/**", produces = "application/json")
-	private String reverseProxy(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request) {
+	private String userRoute(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request)
+	{
+		return reverseProxy(body, parameters, request, USER_SERVER);
+	}
+	
+	@RequestMapping(path = "/games/**", produces = "application/json")
+	private String gameRoute(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request)
+	{
+		return reverseProxy(body, parameters, request, GAME_SERVER);
+	}
+	
+	@RequestMapping(path = "/cards/**", produces = "application/json")
+	private String cardRoute(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request)
+	{
+		return reverseProxy(body, parameters, request, CARD_SERVER);
+	}
+	
+	private String reverseProxy(String body, Map<String,String> parameters,  HttpServletRequest request, String server) {
 		String result = null;
 		String url = (String)(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
 		RequestMethod type = RequestMethod.valueOf(request.getMethod());
@@ -37,8 +57,7 @@ public class FrontRestController {
 		{
 			if(!tryToken(parameters.get("id"), parameters.get("token")))
 			{
-				System.out.println("================================== Token not valid");
-				throw new HTTPException(403);
+				throw new ExceptionNotAuthorized();				
 			}
 		}
 		
@@ -70,18 +89,25 @@ public class FrontRestController {
 		switch(type)
 		{
 			case GET:
-				result = restTemplate.getForObject(USER_SERVER+url+requestParameters, String.class);
+				try
+				{
+					result = restTemplate.getForObject(server+url+requestParameters, String.class);
+				}
+				catch(RestClientException e)
+				{
+					throw new ExceptionNotFound(e);
+				}
 				break;
 			case POST:
-				restTemplate.postForObject(USER_SERVER+url+requestParameters, requestBody, String.class);
+				restTemplate.postForObject(server+url+requestParameters, requestBody, String.class);
 				result = ResponseEntity.ok().build().toString();
 				break;
 			case PUT:
-				restTemplate.put(USER_SERVER+url+requestParameters, requestBody, String.class);
+				restTemplate.put(server+url+requestParameters, requestBody, String.class);
 				result = ResponseEntity.ok().build().toString();
 				break;
 			case DELETE:
-				restTemplate.delete(USER_SERVER+url+requestParameters, requestBody, String.class);
+				restTemplate.delete(server+url+requestParameters, requestBody, String.class);
 				result = ResponseEntity.ok().build().toString();
 				break;
 			default:
