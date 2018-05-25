@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -37,8 +38,7 @@ public class FrontRestController {
 		{
 			if(!tryToken(parameters.get("id"), parameters.get("token")))
 			{
-				System.out.println("================================== Token not valid");
-				throw new HTTPException(403);
+				throw new ExceptionNotAuthorized();				
 			}
 		}
 		
@@ -70,7 +70,14 @@ public class FrontRestController {
 		switch(type)
 		{
 			case GET:
-				result = restTemplate.getForObject(USER_SERVER+url+requestParameters, String.class);
+				try
+				{
+					result = restTemplate.getForObject(USER_SERVER+url+requestParameters, String.class);
+				}
+				catch(RestClientException e)
+				{
+					throw new ExceptionNotFound(e);
+				}
 				break;
 			case POST:
 				restTemplate.postForObject(USER_SERVER+url+requestParameters, requestBody, String.class);
