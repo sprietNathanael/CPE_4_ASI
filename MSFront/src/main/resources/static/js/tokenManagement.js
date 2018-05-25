@@ -22,7 +22,7 @@ function tryToken(id, token)
 	$.ajax({
 		type: "GET",
 		contentType : "application/json",
-		url: "/tryToken?id="+id+"&token="+token,
+		url: "users/tryToken?id="+id+"&token="+token,
 		success: function(data){
 			if(data)
 			{
@@ -50,7 +50,7 @@ function logout()
 	$.ajax({
 		type: "GET",
 		contentType : "application/json",
-		url: "/logout?id="+user.id,
+		url: "users/logout?id="+user.id+"&token="+user.token,
 		success: function(data){
 			sessionStorage.removeItem("user");
 			canNotAuthentify();
@@ -59,4 +59,9 @@ function logout()
 			console.log('Echec');
 		}
 	});
+}
+
+function completeURLWithToken()
+{
+	return "?id="+user.id+"&token="+user.token;
 }

@@ -1,3 +1,8 @@
+function authReady()
+{
+	console.log("auth ready");
+}
+
 console.log("formSample.js load");
 
 $("#submit").click(function(){
@@ -9,7 +14,7 @@ $("#submit").click(function(){
 	$.ajax({
 		type: "POST",
 		contentType : "application/json",
-		url: "/users",
+		url: "/users"+completeURLWithToken(),
 		data: JSON.stringify(formData),
 		dataType: 'json',
 		success: function(){

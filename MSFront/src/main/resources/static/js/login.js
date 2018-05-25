@@ -9,7 +9,7 @@ $("#submit").click(function(){
 	$.ajax({
 		type: "GET",
 		contentType : "application/json",
-		url: "/login?surname="+formData.surname+"&password="+formData.password,
+		url: "users/login?surname="+formData.surname+"&password="+formData.password,
 		success: function(data){
 			if(data)
 			{
