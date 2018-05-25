@@ -22,15 +22,19 @@ $("#submit").click(function(){
 		type: "POST",
 		contentType : "application/json",
 		url: "/rooms"+completeURLWithToken(),
+		dataType: "json",
 		data: JSON.stringify(formData),
-		dataType: 'json',
-		success: function(){
-			console.log('Success !!');
-			location.assign("/room/waitPlayer.html");
+		success: function(data){
+			if (data){
+				sessionStorage.setItem('room', JSON.stringify(data));
+				location.assign("/room/waitPlayer.html");
+			}
 		}, 
-		error : function(){
-			console.log('Echec');
-			location.assign("/room/waitPlayer.html");
+		error : function(data){
+			if (data){
+				sessionStorage.setItem('room', JSON.stringify(data));
+				location.assign("/room/waitPlayer.html");
+			}
 		}
 	});
 });

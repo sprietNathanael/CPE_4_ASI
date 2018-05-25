@@ -1,5 +1,6 @@
 package com.cpe.springboot.game.controller;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,9 +73,11 @@ public class GameRestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/rooms", consumes = "application/json")
-	public void addRoom(@RequestBody Room room) {
+	public Room addRoom(@RequestBody Room room) {
 		roomService.addRoom(room);
 		ResponseEntity.ok().build();
+
+		return room;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/rooms/{id}", consumes = "application/json")
