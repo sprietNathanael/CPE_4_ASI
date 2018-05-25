@@ -42,7 +42,7 @@ function tryToken(id, token)
 
 function canNotAuthentify()
 {
-	window.location = "/connexion.html";
+	window.location.assign("/connexion.html");
 }
 
 function logout()

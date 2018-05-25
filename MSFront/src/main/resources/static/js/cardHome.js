@@ -6,13 +6,15 @@ function authReady()
 
 $(document ).ready(function(){
     $("#playButtonId").click(function(){
-    	window.location.replace('/room/roomList.html');
+    	window.location.assign('/room/roomList.html');
     });    
     $("#buyButtonId").click(function(){
-    	window.location.replace('/cardListBuy.html');
+    	
+    	window.location.assign('/cardList.html');
     });    
     $("#sellButtonId").click(function(){
-    	window.location.replace('/cardListSell.html');
+    	
+    	window.location.assign('/cardList.html');
     });    
 });
 

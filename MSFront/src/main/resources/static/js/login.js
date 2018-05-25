@@ -14,7 +14,7 @@ $("#submit").click(function(){
 			if(data)
 			{
 				sessionStorage.setItem('user', JSON.stringify(data));
-				window.location = "/cardHome.html";
+				window.location.assign("/cardHome.html");
 			}
 			else
 			{
@@ -29,5 +29,5 @@ $("#submit").click(function(){
 });
 
 $("#signUp").click(function(){
-	window.location.replace('/formSample.html');
+	window.location.assign('/formSample.html');
 });

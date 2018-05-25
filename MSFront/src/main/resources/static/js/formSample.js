@@ -27,6 +27,6 @@ $("#submit").click(function(){
 });
 
 $("#cancel").click(function(){
-	window.location.replace('/connexion.html');
+	window.location.assign('/connexion.html');
 });
 
