@@ -101,16 +101,13 @@ public class FrontRestController {
 				}
 				break;
 			case POST:
-				restTemplate.postForObject(server+url+requestParameters, requestBody, String.class);
-				result = ResponseEntity.ok().build().toString();
+				result = restTemplate.postForObject(server+url+requestParameters, requestBody, String.class);
 				break;
 			case PUT:
 				restTemplate.put(server+url+requestParameters, requestBody, String.class);
-				result = ResponseEntity.ok().build().toString();
 				break;
 			case DELETE:
 				restTemplate.delete(server+url+requestParameters, requestBody, String.class);
-				result = ResponseEntity.ok().build().toString();
 				break;
 			default:
 				throw new HTTPException(404);

@@ -2,6 +2,7 @@ function authReady()
 {
 	console.log("auth ready");
 	$("#userNameId").text(user.name);
+	$("#userCash").text(user.cash);
 }
 
 $(document ).ready(function(){

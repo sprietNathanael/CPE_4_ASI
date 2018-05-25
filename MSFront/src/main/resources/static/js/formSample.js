@@ -16,11 +16,10 @@ $("#submit").click(function(){
 		contentType : "application/json",
 		url: "/users"+completeURLWithToken(),
 		data: JSON.stringify(formData),
-		dataType: 'json',
-		success: function(){
+		success: function(data){
 			console.log('Success !!');
 		}, 
-		error : function(){
+		error : function(data){
 			console.log('Echec');
 		}
 	});
