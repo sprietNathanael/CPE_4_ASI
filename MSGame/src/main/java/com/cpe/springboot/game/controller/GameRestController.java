@@ -72,10 +72,9 @@ public class GameRestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/rooms", consumes = "application/json")
-	public ResponseEntity<?>  addRoom(@RequestBody Room room) {
+	public void addRoom(@RequestBody Room room) {
 		roomService.addRoom(room);
-		ResponseEntity<?> res = ResponseEntity.ok().build();
-		return res;
+		ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/rooms/{id}", consumes = "application/json")

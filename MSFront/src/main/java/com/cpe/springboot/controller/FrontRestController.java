@@ -37,7 +37,7 @@ public class FrontRestController {
 		return reverseProxy(body, parameters, request, USER_SERVER);
 	}
 	
-	@RequestMapping(path = "/games/**", produces = "application/json")
+	@RequestMapping(path = "/rooms/**", produces = "application/json")
 	private String gameRoute(@RequestBody(required = false) String body, @RequestParam(required = false) Map<String,String> parameters,  HttpServletRequest request)
 	{
 		return reverseProxy(body, parameters, request, GAME_SERVER);
