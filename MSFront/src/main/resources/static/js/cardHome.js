@@ -10,11 +10,11 @@ $(document ).ready(function(){
     });    
     $("#buyButtonId").click(function(){
     	
-    	window.location.assign('/cardList.html');
+    	window.location.assign('/cardListBuy.html');
     });    
     $("#sellButtonId").click(function(){
     	
-    	window.location.assign('/cardList.html');
+    	window.location.assign('/cardListSell.html');
     });    
 });
 

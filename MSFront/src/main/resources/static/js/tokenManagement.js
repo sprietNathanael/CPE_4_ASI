@@ -7,9 +7,6 @@ if(sessionUser !== undefined && sessionUser !== null)
 	} catch (e) {
 		canNotAuthentify();
 	}
-	
-	console.log("user = ");
-	console.log(user)
 	tryToken(user.id, user.token, function(){console.log("authentifié")});
 }
 else
@@ -24,9 +21,12 @@ function tryToken(id, token)
 		contentType : "application/json",
 		url: "/users/tryToken?id="+id+"&token="+token,
 		success: function(data){
-			if(data)
+			if(data !== "")
 			{
 				console.log("authentifié");
+				sessionStorage.removeItem("user");
+				sessionStorage.setItem("user", JSON.stringify(data));
+				user = data;
 				authReady();
 			}
 			else

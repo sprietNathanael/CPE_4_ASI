@@ -52,7 +52,9 @@ public class FrontRestController {
 	private String reverseProxy(String body, Map<String,String> parameters,  HttpServletRequest request, String server) {
 		String result = null;
 		String url = (String)(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
+		
 		RequestMethod type = RequestMethod.valueOf(request.getMethod());
+		System.out.println(url+" - "+type+" - "+body+" - "+parameters);
 		if(!url.equals("/users/login") && !url.equals("/users/tryToken"))
 		{
 			if(!tryToken(parameters.get("id"), parameters.get("token")))
@@ -120,7 +122,7 @@ public class FrontRestController {
 	private boolean tryToken(String id, String token)
 	{
 		String result = restTemplate.getForObject(USER_SERVER+"/users/tryToken?id="+id+"&token="+token, String.class);
-		return Boolean.valueOf(result);
+		return !result.isEmpty();
 	}
 	
 }

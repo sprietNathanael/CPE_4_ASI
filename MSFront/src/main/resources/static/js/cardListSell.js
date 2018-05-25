@@ -5,6 +5,7 @@ var currentCard;
 function setCashUser(){
 	
 	user.cash = user.cash + currentCard.price;
+	$("#userCash").text(user.cash);
 	console.log(user.cash);
 }
 
@@ -13,7 +14,7 @@ $(window).on('load', function(){
 	$.ajax({
 		type: "GET",
 		contentType : "application/json",
-		url: "/cardsuser/" + user.id,
+		url: "/cards/user/" + user.id+ ""+completeURLWithToken(),
 		success: function(data){
 			console.log('OK');
 			console.log(data);
@@ -37,7 +38,7 @@ $("#sellBtn").click(function(){
 		$.ajax({
 		type: "POST",
 		contentType : "application/json",
-		url: "/sellcard/?idcard="+ currentCard.id,
+		url: "/cards/sell/"+ completeURLWithToken(),
 		data: JSON.stringify(currentCard),
 		dataType: 'json',
 		success: function(){
@@ -48,12 +49,12 @@ $("#sellBtn").click(function(){
 		}
 		});
 		
-		/*setCashUser();
+		setCashUser();
 		//Add price card to cash of user
 		$.ajax({
-			type: "POST",
+			type: "PUT",
 			contentType : "application/json",
-			url: "/updateUser/id/"+ user.id,
+			url: "/users/"+ user.id + completeURLWithToken() ,
 			data: JSON.stringify(user),
 			dataType: 'json',
 			success: function(){
@@ -62,7 +63,9 @@ $("#sellBtn").click(function(){
 			error : function(){
 				console.log('Vente Echec');
 			}
-		});*/
+		});
+		
+		location.reload();
 });
 
 
@@ -75,6 +78,7 @@ function authReady()
 {
 	console.log("auth ready");
 	$("#userNameId").text(user.name);
+	$("#userCash").text(user.cash);
 }
 
 

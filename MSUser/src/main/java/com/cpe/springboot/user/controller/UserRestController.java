@@ -66,15 +66,14 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(path = "/users/tryToken", produces = "application/json")
-	private boolean tryToken(String id, String token) {
+	private User tryToken(String id, String token) {
 		List<User> listuser = userService.getAllUsers();
-		boolean ret = false;
+		User ret = null;
 		for(User user : listuser)
 		{
 			if(user.getId().toString().equals(id) && (user.getToken() != null && user.getToken().equals(token)))
 			{
-				System.out.println("TEST");
-				ret = true;
+				ret = user;
 			}
 		}
 		return ret;		

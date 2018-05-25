@@ -26,33 +26,33 @@ public class CardRestController {
 		return cardService.getCard(id);
 
 	}
-	@RequestMapping(path="/cardsuser/{id}", produces="application/json")
+	@RequestMapping(path="/cards/user/{id}", produces="application/json")
 	private List<Card> getCardsUser(@PathVariable String id) {
 		return cardService.getCardsUser(id);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/cards")
+	@RequestMapping(method=RequestMethod.POST,value="/cards", consumes = "application/json")
 	public void addCard(@RequestBody Card card) {
 		cardService.addCard(card);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT,value="/cards/{id}")
+	@RequestMapping(method=RequestMethod.PUT,value="/cards/{id}", consumes = "application/json")
 	public void updateCard(@RequestBody Card card,@PathVariable String id) {
 		card.setId(Integer.valueOf(id));
 		cardService.updateCard(card);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/sellcard", consumes = "application/json")
+	@RequestMapping(method=RequestMethod.POST,value="/cards/sell", consumes = "application/json")
 	public void sellcard(@RequestBody Card card) {
 		card.setIduser(null);
 		cardService.updateCard(card);
 	}
 	
-//	@RequestMapping(method=RequestMethod.POST,value="/buycard/{idcard}", consumes = "application/json")
-//	public void buycard(@RequestBody Card card,@PathVariable String idcard) {
-//		card.setIduser(null);
-//		cardService.updateCard(card);
-//	}
+	@RequestMapping(method=RequestMethod.POST,value="/cards/buy", consumes = "application/json")
+	public void buycard(@RequestBody Card card) {
+		card.setIduser(null);
+		cardService.updateCard(card);
+	}
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/cards/{id}")
 	public void deleteCard(@PathVariable String id) {
