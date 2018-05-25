@@ -23,7 +23,7 @@ public class UserRestController {
 	private UserService userService;
 	
 	@RequestMapping(path = "/users", produces = "application/json")
-	private List<User> getAllCourses() {
+	private List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
 	

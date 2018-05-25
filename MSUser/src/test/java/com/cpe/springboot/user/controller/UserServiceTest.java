@@ -8,59 +8,104 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.cpe.springboot.user.model.User;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class UserServiceTest {
-	
-	/*@Autowired
-	private CardRepository cardRepository;
-	
-	
+
+	@Autowired
+	private UserRepository userRepository;
+
 	@Test
-    public void saveCard() {
-		cardRepository.save(new Card("jo", "blue", "super blue", "https:\\\\fakeSite\\data.jpg"));
-		List<Card> cards = new ArrayList<>();
-		cardRepository.findAll().forEach(cards::add); 
-		 assertTrue(cards.size() ==1);
-		 assertTrue(cards.get(0).getColor().equals("blue"));
-		 assertTrue(cards.get(0).getSuperPower().equals("super blue"));
-		 assertTrue(cards.get(0).getImgUrl().equals("https:\\\\fakeSite\\data.jpg"));
+	public void saveUser() {
+		String name = "joe";
+		String surname = "jo";
+		String password = "azerty";
+		userRepository.save(new User(name, password, surname));
+		List<User> users = new ArrayList<>();
+		userRepository.findAll().forEach(users::add);
+		assertTrue(users.get(users.size() - 1).getName().equals(name));
+		assertTrue(users.get(users.size() - 1).getSurname().equals(surname));
+		assertTrue(users.get(users.size() - 1).getPassword().equals(password));
 	}
 
-	 @Test
-	    public void findColorCard() {
-		 cardRepository.save(new Card("jo", "blue", "super blue", "https:\\\\fakeSite\\data.jpg"));
-		 List<Card> cardList= cardRepository.findByColor("blue");
-		 assertTrue(cardList.size() ==1);
-		 assertTrue(cardList.get(0).getName().equals("jo"));
-	    }
-	 
-		@Test
-	    public void findAllCard() {
-			for(int i=0;i<100;i++) {
-				cardRepository.save(new Card("jo"+i, "blue"+i, "super blue"+i, "https:\\\\fakeSite\\data"+i+".jpg"));
-			}
-			
-			List<Card> cards = new ArrayList<>();
-			cardRepository.findAll().forEach(cards::add); 
-			
-			assertTrue(cards.size() ==100);
-			
-			for(int i=0;i<100;i++) {
-				String name=cards.get(i).getName();
-				name.split("joe");
-				int index=Integer.valueOf(name.split("jo")[1]);
-				 assertTrue(cards.get(i).getName().equals("jo"+index));
-				 assertTrue(cards.get(i).getColor().equals("blue"+index));
-				 assertTrue(cards.get(i).getSuperPower().equals("super blue"+index));
-				 assertTrue(cards.get(i).getImgUrl().equals("https:\\\\fakeSite\\data"+index+".jpg"));
-			}
-			
-			//TO COMPLETE
-			
-		}*/
+	@Test
+	public void findAllUser() {
+
+		String name = "joe";
+		String surname = "jo";
+		String password = "azerty";
+
+		List<User> users = new ArrayList<User>();
+		userRepository.findAll().forEach(users::add);
+		int sizebeforeinsert = users.size();
+
+		for (int i = 0; i < 10; i++) {
+			userRepository.save(new User(name + i, password + i, surname + i));
+		}
+
+		users.clear();
+		userRepository.findAll().forEach(users::add);
+		int sizeafterinsert = 10 + sizebeforeinsert;
+		assertTrue(users.size() == (sizeafterinsert));
+
+		for (int i = sizebeforeinsert; i < 10; i++) {
+			String nameUser = users.get(i).getName();
+			nameUser.split(name);
+			int index = Integer.valueOf(nameUser.split(name)[1]);
+			assertTrue(users.get(i).getName().equals(name + index));
+			assertTrue(users.get(i).getPassword().equals(password + index));
+			assertTrue(users.get(i).getSurname().equals(surname + index));
+		}
+	}
+
+	@Test
+	public void findOneBySurnameAndPassword() {
+
+		String name = "Floriane";
+		String surname = "Flo";
+		String password = "azerty";
+
+		User user = userRepository.findOneBySurnameAndPassword(surname, password);
+		assertTrue(user != null);
+
+		assertTrue(user.getName().equals(name));
+		assertTrue(user.getSurname().equals(surname));
+		assertTrue(user.getPassword().equals(password));
+	}
+
+	@Test
+	public void findOne() {
+
+		int id = 1;
+		String name = "Floriane";
+		String surname = "Flo";
+		String password = "azerty";
+		User user = userRepository.findOne(id);
+		assertTrue(user != null);
+		assertTrue(user.getId().equals(id));
+		assertTrue(user.getName().equals(name));
+		assertTrue(user.getSurname().equals(surname));
+		assertTrue(user.getPassword().equals(password));
+	}
+
+	@Test
+	public void delete() {
+
+		int id = 1;
+
+		User user = userRepository.findOne(id);
+		assertTrue(user != null);
+		userRepository.delete(id);
+
+		user = userRepository.findOne(id);
+		assertTrue(user == null);
+	}
 }
