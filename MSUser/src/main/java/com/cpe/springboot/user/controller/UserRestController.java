@@ -22,18 +22,18 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(path = "/getall", produces = "application/json")
+	@RequestMapping(path = "/users", produces = "application/json")
 	private List<User> getAllCourses() {
 		return userService.getAllUsers();
 	}
 	
-	@RequestMapping(path = "/id/{id}", produces = "application/json")
+	@RequestMapping(path = "/users/{id}", produces = "application/json")
 	private User getUser(@PathVariable String id) {
 		return userService.getUser(id);
 
 	}
 	
-	@RequestMapping(path = "/login", produces = "application/json")
+	@RequestMapping(path = "/users/login", produces = "application/json")
 	private User login(String surname, String password) {
 		User user = userService.findOneBySurnameAndPassword(surname, password);
 		String token = null;
@@ -49,7 +49,7 @@ public class UserRestController {
 		return user;		
 	}
 	
-	@RequestMapping(path = "/logout", produces = "application/json")
+	@RequestMapping(path = "/users/logout", produces = "application/json")
 	private boolean logout(String id) {
 		List<User> listuser = userService.getAllUsers();
 		boolean ret = false;
@@ -65,7 +65,7 @@ public class UserRestController {
 		return ret;		
 	}
 	
-	@RequestMapping(path = "/tryToken", produces = "application/json")
+	@RequestMapping(path = "/users/tryToken", produces = "application/json")
 	private boolean tryToken(String id, String token) {
 		List<User> listuser = userService.getAllUsers();
 		boolean ret = false;
@@ -80,21 +80,20 @@ public class UserRestController {
 		return ret;		
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/", consumes = "application/json")
+	@RequestMapping(method=RequestMethod.POST,value="/users", consumes = "application/json")
 	public ResponseEntity<?>  addUser(@RequestBody User user) {
 		userService.addUser(user);
 		ResponseEntity<?> res = ResponseEntity.ok().build();
-		System.out.println(res);
 		return res;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT,value="/id/{id}", consumes = "application/json")
+	@RequestMapping(method=RequestMethod.PUT,value="/users/{id}", consumes = "application/json")
 	public void updateUser(@RequestBody User user,@PathVariable String id) {
 		user.setId(Integer.valueOf(id));
 		userService.updateUser(user);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE,value="/id/{id}")
+	@RequestMapping(method=RequestMethod.DELETE,value="/users/{id}")
 	public void deleteUser(@PathVariable String id) {
 		userService.deleteUser(id);
 	}
