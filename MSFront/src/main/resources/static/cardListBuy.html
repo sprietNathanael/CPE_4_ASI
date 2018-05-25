@@ -20,15 +20,15 @@
                 <i class="user circle outline icon" onclick="logout()"></i>
                 <div class="content">
                     <span id="userNameId">Jdoe</span>
-                    <div class="sub header"><span>5000</span>$</div>
+                    <div class="sub header"><span id="userCash">5000</span>$</div>
                 </div>
             </h3>
 
             <h3 class="ui left floated header">
                 <i class="money icon"></i>
                 <div class="content">
-                    SELL
-                    <div class="sub header">Sell your card to get money</div>
+                    BUY
+                    <div class="sub header">Buy a card with your money</div>
                 </div>
             </h3>
         </div>
@@ -55,28 +55,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img  class="ui avatar image" src="http://www.guinnessworldrecords.com/images/superlative/superheroes/GWR-Superheroes-SUPERMAN.svg"> <span>Superman </span>
-                            </td>
-                            <td>"The origin story of Superman relates that he was born Kal-El on the planet Krypton, before being rocketed to Earth as an infant by his scientist father Jor-El, moments before Krypton's destruction. Discovered and adopted by a farm couple from Kansas, the child is raised as Clark Kent and imbued with a strong moral compass. Early in his childhood, he displays various superhuman abilities, which, upon reaching maturity, he resolves to use for the benefit of humanity through a 'Superman' identity."</td>
-                            <td>DC Comic</td>
-                            <td>50</td>
-                            <td>100</td>
-                            <td>80</td>
-                            <td>100</td>
-                            <td>100$</td>
-                            <td>
-                                <div class="ui vertical animated button" tabindex="0">
-                                    <div class="hidden content">Sell</div>
-                                    <div class="visible content">
-                                        <i class="shop icon"></i>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
+                    <tbody id="cardList">
                     </tbody>
                 </table>
             </div>
@@ -127,9 +106,9 @@
                                 <i class="protect icon"></i>
                                 <span id="cardDefenceId"> </span> 
                             </div>
-                            <div class="ui bottom attached button">
+                            <div class="ui bottom attached button" id="buyBtn">
                                 <i class="money icon"></i>
-                                Sell for <span id="cardPriceId"> 100$</span>
+                                Buy for <span id="cardPriceId"> 100$</span>
                             </div>
 
                         </div>

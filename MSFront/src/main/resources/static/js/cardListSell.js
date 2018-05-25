@@ -1,14 +1,19 @@
+function authReady()
+{
+	console.log("auth ready");
+	$("#userNameId").text(user.name);
+	$("#userCash").text(user.cash);
+}
 
 var currentCard;
-
+var cards = [];
 
 function setCashUser(){
 	
-	user.cash = user.cash + currentCard.price;
+	user.cash = user.cash + cards[currentCard].price;
 	$("#userCash").text(user.cash);
 	console.log(user.cash);
 }
-
 
 $(window).on('load', function(){ 
 	$.ajax({
@@ -18,11 +23,12 @@ $(window).on('load', function(){
 		success: function(data){
 			console.log('OK');
 			console.log(data);
-			currentCard = data[0];
-			$.each(data, function(i, card){
-				addCardToList(card.id,"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/DC_Comics_logo.png/280px-DC_Comics_logo.png",card.family,card.imgUrl,card.name,card.description,card.hp,card.energy,card.attack,card.defence,card.price);
-			});			
-			fillCurrentCard(currentCard.id,"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/DC_Comics_logo.png/280px-DC_Comics_logo.png",currentCard.family,currentCard.imgUrl,currentCard.name,currentCard.description,currentCard.hp,currentCard.energy,currentCard.attack,currentCard.defence,currentCard.price);
+			$.each(data, function(index, card){
+				addCardToList(index,card.id,"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/DC_Comics_logo.png/280px-DC_Comics_logo.png",card.family,card.imgUrl,card.name,card.description,card.hp,card.energy,card.attack,card.defence,card.price);
+				cards.push(card);
+			});
+			currentCard = 0;
+			fillCurrentCard();
 		}, 
 		error : function(){
 			console.log('Echec');
@@ -32,14 +38,13 @@ $(window).on('load', function(){
 
 $("#sellBtn").click(function(){
 	
-	console.log(currentCard);
 	
 		//Delete iduser from card
 		$.ajax({
 		type: "POST",
 		contentType : "application/json",
 		url: "/cards/sell/"+ completeURLWithToken(),
-		data: JSON.stringify(currentCard),
+		data: JSON.stringify(cards[currentCard]),
 		dataType: 'json',
 		success: function(){
 			console.log('Vente réalisée');
@@ -69,52 +74,30 @@ $("#sellBtn").click(function(){
 });
 
 
-$(document ).ready(function(){
-    
-
-});
-
-function authReady()
-{
-	console.log("auth ready");
-	$("#userNameId").text(user.name);
-	$("#userCash").text(user.cash);
-}
-
-
-
-function fillCurrentCard(idCard,imgUrlFamily,familyName,imgUrl,name,description,hp,energy,attack,defence,price){
-    //FILL THE CURRENT CARD
-    $('#cardFamilyImgId')[0].src=imgUrlFamily;
-    $('#cardFamilyNameId')[0].innerHTML=familyName;
-    $('#cardImgId')[0].src=imgUrl;
-    $('#cardNameId')[0].innerHTML=name;
-    $('#cardDescriptionId')[0].innerHTML=description;
-    $('#cardHPId')[0].innerHTML=hp+" HP";
-    $('#cardEnergyId')[0].innerHTML=energy+" Energy";
-    $('#cardAttackId')[0].innerHTML=attack+" Attack";
-    $('#cardDefenceId')[0].innerHTML=defence+" Defence";
-    $('#cardPriceId')[0].innerHTML=price+" $";
-    $('#cardId')[0].innerHTML=idCard;
-    getCurrentCard(idCard,familyName,imgUrl,name,description,hp,energy,attack,defence,price);
+function fillCurrentCard(){
+	//FILL THE CURRENT CARD
+    $('#cardFamilyImgId')[0].src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/DC_Comics_logo.png/280px-DC_Comics_logo.png";
+    $('#cardFamilyNameId')[0].innerHTML=cards[currentCard].family;
+    $('#cardImgId')[0].src=cards[currentCard].imgUrl;
+    $('#cardNameId')[0].innerHTML=cards[currentCard].name;
+    $('#cardDescriptionId')[0].innerHTML=cards[currentCard].description;
+    $('#cardHPId')[0].innerHTML=cards[currentCard].hp+" HP";
+    $('#cardEnergyId')[0].innerHTML=cards[currentCard].energy+" Energy";
+    $('#cardAttackId')[0].innerHTML=cards[currentCard].attack+" Attack";
+    $('#cardDefenceId')[0].innerHTML=cards[currentCard].defence+" Defence";
+    $('#cardPriceId')[0].innerHTML=cards[currentCard].price+" $";
+    $('#cardId')[0].innerHTML=cards[currentCard].id;
    
 };
 
-function getCurrentCard(idCard,familyName,imgUrl,name,description,hp,energy,attack,defence,price){
+function updateCurrentCard(cardIndex){
+	currentCard = parseInt(cardIndex);
+	fillCurrentCard();
 
-	currentCard.id = idCard;
-	currentCard.family = familyName;
-	currentCard.imgUrl = imgUrl;
-	currentCard.name = name;
-	currentCard.description = description;
-	currentCard.hp = hp;
-	currentCard.energy = energy;
-	currentCard.attack = attack;
-	currentCard.defence = defence;
-	currentCard.price = price;
 }
 
-function addCardToList(idCard,imgUrlFamily,familyName,imgUrl,name,description,hp,energy,attack,defence,price){
+
+function addCardToList(index,idCard,imgUrlFamily,familyName,imgUrl,name,description,hp,energy,attack,defence,price){
   
     content="\
     <td> \
@@ -128,7 +111,7 @@ function addCardToList(idCard,imgUrlFamily,familyName,imgUrl,name,description,hp
     <td>"+defence+"</td> \
     <td>"+price+"$</td>\
     <td>\
-        <div onclick=\"fillCurrentCard('"+idCard+"','"+imgUrlFamily+"','"+familyName+"','"+imgUrl+"','"+name+"','"+description+"','"+hp+"','"+energy+"','"+attack+"','"+defence+"','"+price+"')\" class='ui vertical animated button' tabindex='0'>\
+        <div onclick=\"updateCurrentCard("+index+")\" class='ui vertical animated button' tabindex='0'>\
             <div class='hidden content'>Sell</div>\
     <div class='visible content'>\
         <i class='shop icon'></i>\
@@ -136,7 +119,7 @@ function addCardToList(idCard,imgUrlFamily,familyName,imgUrl,name,description,hp
     </div>\
     </td>";
 
-    $('#cardListId tr:last').after('<tr>'+content+'</tr>');
+    $('#cardList').append('<tr>'+content+'</tr>');
     
     
 };

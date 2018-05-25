@@ -48,9 +48,9 @@ public class CardRestController {
 		cardService.updateCard(card);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/cards/buy", consumes = "application/json")
-	public void buycard(@RequestBody Card card) {
-		card.setIduser(null);
+	@RequestMapping(method=RequestMethod.POST,value="/cards/buy/{idUser}", consumes = "application/json")
+	public void buycard(@RequestBody Card card, @PathVariable Integer idUser) {
+		card.setIduser(idUser);
 		cardService.updateCard(card);
 	}
 	
