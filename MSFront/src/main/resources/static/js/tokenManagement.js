@@ -22,7 +22,7 @@ function tryToken(id, token)
 	$.ajax({
 		type: "GET",
 		contentType : "application/json",
-		url: "users/tryToken?id="+id+"&token="+token,
+		url: "/users/tryToken?id="+id+"&token="+token,
 		success: function(data){
 			if(data)
 			{
@@ -50,7 +50,7 @@ function logout()
 	$.ajax({
 		type: "GET",
 		contentType : "application/json",
-		url: "users/logout?id="+user.id+"&token="+user.token,
+		url: "/users/logout?id="+user.id+"&token="+user.token,
 		success: function(data){
 			sessionStorage.removeItem("user");
 			canNotAuthentify();
