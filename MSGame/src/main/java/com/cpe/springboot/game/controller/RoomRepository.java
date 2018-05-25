@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.cpe.springboot.game.model.Game;
+import com.cpe.springboot.game.model.Room;
 
-public interface GameRepository extends CrudRepository<Game, Integer> {
+public interface RoomRepository extends CrudRepository<Room, Integer> {
 	
 //	public List<User> findByColor(String color);
-	public Game findOneBySurnameAndPassword(String surname, String password);
+//  public Game findOneBySurnameAndPassword(String surname, String password);
 }

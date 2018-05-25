@@ -1,80 +1,86 @@
 package com.cpe.springboot.game.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.cpe.springboot.game.model.Room;
+
 @Entity
-public class Game {
+public class Room {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-	private String name;
-	private String password;
-	private String surname;
-	@Column(name="cash", nullable=false, columnDefinition="Decimal(8,2)")
-	private BigDecimal cash = BigDecimal.valueOf(5000);
-	private String token;
+	private String roomName;
+	private Integer bet;
+	private Integer creatorId;
+	private Integer player1;
+	private Integer player2;
+	/*
+	 * 1: created
+	 * 2: in progress
+	 * 3: finished
+	 */
+	@Column(name="state")
+	private Integer state = 0;
 	
-	public Game() {	}
-	
-	public Game(String name,String password,String surname) {
-		this.name = name;
-		this.password = password;
-		this.surname = surname;
+	public Room() {	}
+
+	public Room(String name, int bet, int creatorId) {
+		this.setRoomName(name);
+		this.setBet(bet);
+		this.setCreatorId(creatorId);
+		this.setState(0);
 	}
 
-	public String getName() {
-		return name;
+	public String getRoomName() {
+		return roomName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 
-	public String getPassword() {
-		return password;
+	public Integer getBet() {
+		return bet;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setBet(Integer bet) {
+		this.bet = bet;
 	}
 
-	public String getSurname() {
-		return surname;
+	public Integer getCreatorId() {
+		return creatorId;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setCreatorId(Integer creatorId) {
+		this.creatorId = creatorId;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getPlayer1() {
+		return player1;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setPlayer1(Integer player1) {
+		this.player1 = player1;
 	}
 
-	public BigDecimal getCash() {
-		return cash;
+	public Integer getPlayer2() {
+		return player2;
 	}
 
-	public void setCash(BigDecimal cash) {
-		this.cash = cash;
-	}
-	
-	public String getToken() {
-		return token;
+	public void setPlayer2(Integer player2) {
+		this.player2 = player2;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public Integer getState() {
+		return state;
 	}
 
+	public void setState(Integer state) {
+		this.state = state;
+	}
 }

@@ -6,39 +6,35 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cpe.springboot.game.model.Game;
+import com.cpe.springboot.game.model.Room;
 
 @Service
-public class GameService {
+public class RoomService {
 
 	@Autowired
-	private GameRepository userRepository;
+	private RoomRepository roomRepository;
 
-	public List<Game> getAllUsers() {
-		List<Game> users = new ArrayList<>();
-		userRepository.findAll().forEach(users::add);
-		return users;
+	public List<Room> getAllRooms() {
+		List<Room> rooms = new ArrayList<>();
+		roomRepository.findAll().forEach(rooms::add);
+		return rooms;
 	}
 
-	public Game getUser(String id) {
-		return userRepository.findOne(Integer.valueOf(id));
+	public Room getRoom(String id) {
+		return roomRepository.findOne(Integer.valueOf(id));
 	}
 
-	public void addUser(Game user) {
-		userRepository.save(user);
+	public void addRoom(Room room) {
+		roomRepository.save(room);
 	}
 
-	public void updateUser(Game user) {
-		userRepository.save(user);
+	public void updateRoom(Room room) {
+		roomRepository.save(room);
 
 	}
 
-	public void deleteUser(String id) {
-		userRepository.delete(Integer.valueOf(id));
-	}
-	
-	public Game findOneBySurnameAndPassword(String surname, String password){
-		return userRepository.findOneBySurnameAndPassword(surname, password);
+	public void deleteRoom(String id) {
+		roomRepository.delete(Integer.valueOf(id));
 	}
 
 }
