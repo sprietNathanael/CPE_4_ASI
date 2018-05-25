@@ -9,10 +9,10 @@ $(document ).ready(function(){
     	window.location.replace('/room/roomList.html');
     });    
     $("#buyButtonId").click(function(){
-    	window.location.replace('/cardList.html');
+    	window.location.replace('/cardListBuy.html');
     });    
     $("#sellButtonId").click(function(){
-    	window.location.replace('/cardList.html');
+    	window.location.replace('/cardListSell.html');
     });    
 });
 

@@ -17,19 +17,16 @@ public class CardRestController {
 	@Autowired
 	private CardService cardService;
 	
-	@RequestMapping("/cards")
+	@RequestMapping(path="/cards", produces="application/json")
 	private List<Card> getAllCourses() {
 		return cardService.getAllCards();
-
 	}
-	
-	@RequestMapping("/cards/{id}")
+	@RequestMapping(path="/cards/{id}", produces="application/json")
 	private Card getCard(@PathVariable String id) {
 		return cardService.getCard(id);
 
 	}
-	
-	@RequestMapping("/cardsuser/{id}")
+	@RequestMapping(path="/cardsuser/{id}", produces="application/json")
 	private List<Card> getCardsUser(@PathVariable String id) {
 		return cardService.getCardsUser(id);
 	}
@@ -45,16 +42,21 @@ public class CardRestController {
 		cardService.updateCard(card);
 	}
 	
+	@RequestMapping(method=RequestMethod.POST,value="/sellcard", consumes = "application/json")
+	public void sellcard(@RequestBody Card card) {
+		card.setIduser(null);
+		cardService.updateCard(card);
+	}
+	
+//	@RequestMapping(method=RequestMethod.POST,value="/buycard/{idcard}", consumes = "application/json")
+//	public void buycard(@RequestBody Card card,@PathVariable String idcard) {
+//		card.setIduser(null);
+//		cardService.updateCard(card);
+//	}
+	
 	@RequestMapping(method=RequestMethod.DELETE,value="/cards/{id}")
 	public void deleteCard(@PathVariable String id) {
 		cardService.deleteCard(id);
 	}
-	
-	/*@RequestMapping("/cards/color/{color}")
-	private List<Card> getAllCourses(@PathVariable String color) {
-		return cardService.getCardByColor(color);
-
-	}*/
-	
 
 }

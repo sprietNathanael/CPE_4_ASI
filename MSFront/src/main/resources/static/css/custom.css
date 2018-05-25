@@ -26,3 +26,7 @@ body{
 .overflowHiden{
     overflow:  auto;
 }
+
+#cardId{
+	display:none;
+}

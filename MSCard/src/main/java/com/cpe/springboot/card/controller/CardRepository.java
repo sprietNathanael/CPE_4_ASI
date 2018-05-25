@@ -10,7 +10,7 @@ import com.cpe.springboot.card.model.Card;
 
 public interface CardRepository extends CrudRepository<Card, Integer> {
 
-	@Query("SELECT c FROM Card c WHERE c.user.id = :id")
+	@Query("SELECT c FROM Card c WHERE c.iduser = :id")
 	List<Card> cardsuser(@Param("id") Integer id);
 	
 	/*public List<Card> findByColor(String color);*/
