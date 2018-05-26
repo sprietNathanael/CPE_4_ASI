@@ -20,10 +20,10 @@ $(window).on('load', function(){
 	$.ajax({
 		type: "GET",
 		contentType : "application/json",
-		url: "/rooms"+completeURLWithToken(),
+		url: "/rooms/pending"+completeURLWithToken(),
 		success: function(data){
 			$.each(data, function(index, room){
-				addRoomToList(room.id,"room "+ room.id,"user" +room.creatorId, room.bet);
+				addRoomToList(room.id, room.roomName,"user" +room.creatorId, room.bet);
 			});
 		}, 
 		error : function(){
@@ -49,10 +49,25 @@ function addRoomToList(id,name, user, bet){
                             </td>";
     
     $('#roomListId tr:last').after('<tr>'+content+'</tr>');
-    
-    
 };
 
 function onRoomSelected(id){
-    alert("Room selected : " +id);
+	$.ajax({
+		type: "GET",
+		contentType : "application/json",
+		url: "/rooms/"+ id +completeURLWithToken(),
+		dataType: "json",
+		success: function(data){
+			if (data){
+				sessionStorage.setItem('room', JSON.stringify(data));
+				location.assign("/room/waitPlayer.html");
+			}
+		}, 
+		error : function(data){
+			if (data){
+				sessionStorage.setItem('room', JSON.stringify(data));
+				location.assign("/room/waitPlayer.html");
+			}
+		}
+	});
 }
