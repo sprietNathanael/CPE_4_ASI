@@ -17,9 +17,11 @@ $("#submit").click(function(){
 		url: "/users"+completeURLWithToken(),
 		data: JSON.stringify(formData),
 		success: function(data){
+			window.location.assign('/connexion.html');
 			console.log('Success !!');
 		}, 
 		error : function(data){
+			window.location.assign('/connexion.html');
 			console.log('Echec');
 		}
 	});
